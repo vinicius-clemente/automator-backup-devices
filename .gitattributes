@@ -1,1 +1,2 @@
-templates/** linguist-documentation
+*.html linguist-detectable=false
+templates/** linguist-vendored
