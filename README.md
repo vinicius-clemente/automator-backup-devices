@@ -47,7 +47,7 @@ Preencha os arquivos de inventário conforme o fabricante:
 - `devices-dell.txt` → Dell OS10
 - `devices-datacom.txt` → Datacom
 - `devices_rts.txt` → Infinera / Coriant
-- `devices-intragov.txt` → Equipamentos Legados (Telnet)
+- `devices-cliente.txt` → Equipamentos Legados (Telnet)
 
 ### 4. Executar Backup Manual (Teste)
 Para testar a coleta de backups manualmente via CLI:
