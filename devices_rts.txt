@@ -1,0 +1,6 @@
+# Lista de Roteadores Infinera / Coriant
+# Adicione os IPs dos roteadores aqui.
+# Um por linha. Linhas com # sao ignoradas.
+
+DTC01-CORE-RT03
+DTC01-CORE-RT04

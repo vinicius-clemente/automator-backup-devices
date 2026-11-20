@@ -1,0 +1,10 @@
+# Lista de equipamentos DELL OS10
+# Adicione os IPs/hostnames dos switches Dell aqui
+# Um por linha. Linhas com # sao ignoradas.
+
+CLIENTE-SW01
+CLIENTE-SW02
+CLIENTE-MXL-SW01
+CLIENTE-MXL-SW02
+CLIENTE-MXL-SW03
+CLIENTE-MXL-SW04

@@ -1,0 +1,8 @@
+# Lista de equipamentos via TELNET (Cisco antigo 2950, 3550, 3560, etc)
+# Adicione os IPs aqui. Um por linha. Linhas com # sao ignoradas.
+
+CLIENTE-SW01
+CLIENTE-SW02
+CLIENTE-SW03
+CLIENTE-SW04
+

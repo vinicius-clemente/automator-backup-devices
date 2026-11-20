@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ device }} — Backup Portal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --bg-body: #080c14; --bg-surface: #0f1724; --bg-card: #162032;
+            --border: rgba(56,189,248,0.06); --border-active: rgba(56,189,248,0.15);
+            --accent: #38bdf8; --accent-dim: #0e7490;
+            --text: #e2e8f0; --text-dim: #64748b; --text-muted: #3b4a5e;
+            --success: #22c55e; --success-bg: rgba(34,197,94,0.1);
+            --danger: #ef4444; --danger-bg: rgba(239,68,68,0.1);
+            --warning: #eab308; --warning-bg: rgba(234,179,8,0.1);
+        }
+        body {
+            background: var(--bg-body);
+            color: var(--text);
+            font-family: 'Inter', -apple-system, 'Segoe UI', sans-serif;
+            min-height: 100vh;
+        }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: var(--bg-body); }
+        ::-webkit-scrollbar-thumb { background: var(--text-muted); border-radius: 4px; }
+
+        .navbar-custom {
+            background: rgba(15,23,36,0.9);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+            padding: 0.8rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .brand {
+            font-weight: 700;
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+        .brand i { color: var(--text-dim); margin-right: 0.5rem; }
+        .dev-title {
+            font-weight: 800;
+            font-size: 1.3rem;
+            letter-spacing: -0.3px;
+        }
+        .dev-title i { color: var(--accent-dim); margin-right: 0.5rem; }
+
+        /* Info Grid */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+        .info-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1rem;
+            text-align: center;
+        }
+        .info-card .lbl {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--text-muted);
+        }
+        .info-card .val {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-top: 0.25rem;
+        }
+
+        /* Backup List */
+        .bk-list {
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+        }
+        .bk-list-hdr {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 1.25rem;
+            border-bottom: 1px solid var(--border);
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--text-dim);
+        }
+        .bk-list-hdr i { color: var(--accent-dim); margin-right: 0.4rem; }
+        .bk-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.7rem 1.25rem;
+            border-bottom: 1px solid rgba(255,255,255,0.02);
+            text-decoration: none;
+            color: var(--text);
+            transition: background 0.15s;
+        }
+        .bk-item:last-child { border-bottom: none; }
+        .bk-item:hover { background: rgba(56,189,248,0.03); color: var(--accent); }
+        .bk-date { font-weight: 500; font-size: 0.9rem; }
+        .bk-date i { color: var(--accent-dim); margin-right: 0.5rem; font-size: 0.8rem; }
+        .bk-size { color: var(--text-dim); font-size: 0.8rem; }
+
+        .btn-act {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            border-radius: 6px;
+            padding: 0.2rem 0.55rem;
+            font-size: 0.7rem;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .btn-act:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: rgba(56,189,248,0.08);
+        }
+        .btn-compare {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: transparent;
+            border: 1px solid rgba(234,179,8,0.2);
+            color: var(--warning);
+            border-radius: 8px;
+            padding: 0.35rem 0.9rem;
+            font-size: 0.78rem;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .btn-compare:hover {
+            background: var(--warning-bg);
+            color: #fff;
+        }
+
+        .empty-state {
+            padding: 2.5rem;
+            text-align: center;
+            color: var(--text-muted);
+        }
+        .empty-state i { font-size: 2.5rem; opacity: 0.3; margin-bottom: 0.8rem; display: block; }
+
+        .footer-text {
+            text-align: center;
+            padding: 2rem 0 1rem;
+            color: var(--text-muted);
+            font-size: 0.7rem;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar-custom">
+    <div class="container d-flex justify-content-between align-items-center">
+        <a href="/" class="brand"><i class="fas fa-arrow-left"></i>Voltar</a>
+        <span class="dev-title"><i class="fas fa-server"></i>{{ device }}</span>
+        <div class="dropdown">
+            <button class="btn-act dropdown-toggle" style="border-color:var(--border-active);" data-bs-toggle="dropdown">
+                <i class="fas fa-user"></i>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end" style="background:var(--bg-surface);border:1px solid var(--border);border-radius:12px;padding:0.5rem;min-width:180px;">
+                <li style="padding:0.25rem 0.75rem;font-size:0.75rem;color:var(--text-dim);"><i class="fas fa-user me-1" style="color:var(--accent);"></i>{{ session.get("nome", session.get("username", "")) }}</li>
+                <li><hr style="margin:0.3rem 0;border-color:var(--border);"></li>
+                <li><a href="/change-password" class="dropdown-item" style="color:var(--text);font-size:0.8rem;border-radius:8px;padding:0.4rem 0.75rem;"><i class="fas fa-key me-2" style="color:var(--accent-dim);"></i>Alterar Senha</a></li>
+                <li><a href="/logout" class="dropdown-item" style="color:var(--danger);font-size:0.8rem;border-radius:8px;padding:0.4rem 0.75rem;"><i class="fas fa-sign-out-alt me-2"></i>Sair</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<main class="container py-3">
+
+    {% if info %}
+    <div class="info-grid">
+        <div class="info-card">
+            <div class="lbl"><i class="fas fa-network-wired me-1"></i>IP</div>
+            <div class="val" style="font-size:0.9rem;">{{ info.ip }}</div>
+        </div>
+        <div class="info-card">
+            <div class="lbl"><i class="fas fa-microchip me-1"></i>Plataforma</div>
+            <div class="val" style="font-size:0.85rem;">{{ info.platform if info.platform else "—" }}</div>
+        </div>
+        <div class="info-card">
+            <div class="lbl"><i class="fas fa-clock me-1"></i>Último Backup</div>
+            <div class="val" style="font-size:0.8rem;">{{ info.last_backup if info.last_backup else "—" }}</div>
+        </div>
+        <div class="info-card">
+            <div class="lbl"><i class="fas fa-circle me-1"></i>Status</div>
+            <div class="val">
+                {% if info.status == "success" %}
+                <span style="color:var(--success);"><i class="fas fa-check-circle"></i> OK</span>
+                {% elif info.status == "failed" %}
+                <span style="color:var(--danger);"><i class="fas fa-times-circle"></i> FALHA</span>
+                {% else %}
+                <span style="color:var(--text-muted);">—</span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if backups|length > 1 %}
+    <div class="mb-3 text-end">
+        <a href="/diff/{{ device }}?b1={{ backups[0].arquivo }}&b2={{ backups[1].arquivo }}" class="btn-compare">
+            <i class="fas fa-code-branch"></i> Comparar Últimos 2
+        </a>
+    </div>
+    {% endif %}
+
+    <div class="bk-list">
+        <div class="bk-list-hdr">
+            <span><i class="fas fa-history"></i>Backups ({{ backups|length }})</span>
+        </div>
+        {% for b in backups %}
+        <a href="/config/{{ device }}/{{ b.arquivo }}" class="bk-item">
+            <span class="bk-date"><i class="fas fa-file-code"></i>{{ b.data }}</span>
+            <span style="display:flex;align-items:center;gap:0.75rem;">
+                <span class="bk-size">{{ b.tamanho }}</span>
+                <a href="/download/{{ device }}/{{ b.arquivo }}" class="btn-act" style="color:var(--accent-dim);font-size:0.7rem;" onclick="event.stopPropagation();">
+                    <i class="fas fa-download"></i>
+                </a>
+            </span>
+        </a>
+        {% else %}
+        <div class="empty-state">
+            <i class="fas fa-database"></i>
+            <p>Nenhum backup encontrado</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="footer-text">
+        <i class="fas fa-database me-1"></i> Backup Portal
+    </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

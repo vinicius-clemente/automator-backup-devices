@@ -1,0 +1,8 @@
+# Lista de equipamentos DATACOM (DM4370 / INTRAGOV)
+# Adicione os IPs dos switches Datacom aqui.
+# Um por linha. Linhas com # sao ignoradas.
+
+CLIENTE-SW01
+CLIENTE-SW02
+CLIENTE-SW03
+CLIENTE-SW04
